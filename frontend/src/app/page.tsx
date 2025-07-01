@@ -1,103 +1,121 @@
-import Image from "next/image";
+import { Button } from '@/components/ui/button';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
+import { Book, Users, CalendarCheck, LibraryBig } from 'lucide-react';
+import Link from 'next/link';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  // Data statistik (bisa diganti dengan data real dari API)
+  const stats = [
+    { title: "Total Buku", value: "1,240", icon: <Book className="h-6 w-6" />, link: "/buku" },
+    { title: "Total Anggota", value: "568", icon: <Users className="h-6 w-6" />, link: "/anggota" },
+    { title: "Peminjaman Aktif", value: "189", icon: <CalendarCheck className="h-6 w-6" />, link: "/peminjaman" },
+    { title: "Koleksi Terbaru", value: "42", icon: <LibraryBig className="h-6 w-6" />, link: "/buku" },
+  ];
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const quickActions = [
+    { title: "Tambah Buku Baru", description: "Tambahkan buku baru ke katalog", icon: <Book className="h-5 w-5" />, link: "/buku/tambah" },
+    { title: "Daftarkan Anggota", description: "Buat akun anggota baru", icon: <Users className="h-5 w-5" />, link: "/anggota/tambah" },
+    { title: "Proses Peminjaman", description: "Catat peminjaman buku", icon: <CalendarCheck className="h-5 w-5" />, link: "/peminjaman/tambah" },
+    { title: "Lihat Laporan", description: "Akses laporan sistem", icon: <LibraryBig className="h-5 w-5" />, link: "/laporan" },
+  ];
+
+  return (
+    <div className="flex flex-col gap-8">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-xl p-8 text-white">
+        <div className="max-w-4xl mx-auto text-center">
+          <h1 className="text-4xl font-bold mb-4">Selamat Datang di Sistem Perpustakaan Digital</h1>
+          <p className="text-xl mb-6">Kelola koleksi buku, anggota, dan peminjaman dengan mudah dan efisien</p>
+          <div className="flex gap-4 justify-center">
+            <Button asChild variant="secondary">
+              <Link href="/buku">Jelajahi Koleksi</Link>
+            </Button>
+            <Button asChild variant="outline" className="text-white border-white hover:bg-white/10">
+              <Link href="/peminjaman">Lihat Peminjaman</Link>
+            </Button>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </section>
+
+      {/* Stats Section */}
+      <section>
+        <h2 className="text-2xl font-semibold mb-6">Ringkasan Sistem</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {stats.map((stat, index) => (
+            <Card key={index} className="hover:shadow-lg transition-shadow">
+              <CardHeader className="flex flex-row items-center justify-between pb-2">
+                <CardTitle className="text-sm font-medium text-gray-500">
+                  {stat.title}
+                </CardTitle>
+                <div className="text-primary">
+                  {stat.icon}
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{stat.value}</div>
+                <Link href={stat.link} className="text-sm text-primary hover:underline mt-2 inline-block">
+                  Lihat detail
+                </Link>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      {/* Quick Actions */}
+      <section>
+        <h2 className="text-2xl font-semibold mb-6">Aksi Cepat</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {quickActions.map((action, index) => (
+            <Card key={index} className="hover:shadow-lg transition-shadow group">
+              <Link href={action.link}>
+                <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-full bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors">
+                      {action.icon}
+                    </div>
+                    <div>
+                      <CardTitle className="text-lg">{action.title}</CardTitle>
+                      <CardDescription className="text-sm">{action.description}</CardDescription>
+                    </div>
+                  </div>
+                </CardHeader>
+              </Link>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      {/* Recent Activity */}
+      <section>
+        <h2 className="text-2xl font-semibold mb-6">Aktivitas Terkini</h2>
+        <Card>
+          <CardHeader>
+            <CardTitle>Riwayat Peminjaman</CardTitle>
+            <CardDescription>5 peminjaman terakhir yang diproses</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {[1, 2, 3, 4, 5].map((item) => (
+                <div key={item} className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg transition-colors">
+                  <div>
+                    <p className="font-medium">Anggota #{item} meminjam buku "Judul Buku {item}"</p>
+                    <p className="text-sm text-gray-500">2 hari yang lalu</p>
+                  </div>
+                  <Button variant="ghost" size="sm">
+                    Detail
+                  </Button>
+                </div>
+              ))}
+            </div>
+            <div className="mt-4 text-center">
+              <Button variant="link" asChild>
+                <Link href="/peminjaman">Lihat Semua Peminjaman</Link>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </section>
     </div>
   );
 }
