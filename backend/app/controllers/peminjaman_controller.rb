@@ -1,7 +1,7 @@
 class PeminjamanController < ApplicationController
 def index
     peminjaman = Peminjaman.all
-    render json: peminjamans
+    render json: peminjaman
   end
 
   def show

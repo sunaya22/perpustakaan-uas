@@ -1,14 +1,18 @@
 class UserController < ApplicationController
+  before_action :set_user, only: [:show, :update, :destroy]
+
+  # GET /user
   def index
-    user = User.all
-    render json: user
+    users = User.all
+    render json: users
   end
 
+  # GET /user/:id
   def show
-    user = User.find(params[:id])
-    render json: user
+    render json: @user
   end
 
+  # POST /user
   def create
     user = User.new(user_params)
     if user.save
@@ -18,21 +22,22 @@ class UserController < ApplicationController
     end
   end
 
+  # PUT /user/:id
   def update
-    user = User.find(params[:id])
-    if user.update(user_params)
-      render json: user
+    if @user.update(user_params)
+      render json: @user
     else
-      render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
+      render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
+  # DELETE /user/:id
   def destroy
-    user = User.find(params[:id])
-    user.destroy
+    @user.destroy
     head :no_content
   end
 
+  # POST /user/login
   def login
     user = User.find_by(username: params[:username])
     if user&.authenticate(params[:password])
@@ -43,6 +48,12 @@ class UserController < ApplicationController
   end
 
   private
+
+  def set_user
+    @user = User.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: "User not found" }, status: :not_found
+  end
 
   def user_params
     params.require(:user).permit(:username, :password, :kontak, :status)
